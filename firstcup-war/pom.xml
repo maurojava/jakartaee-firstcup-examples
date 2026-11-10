@@ -23,4 +23,12 @@
     <artifactId>firstcup-war</artifactId>
     <packaging>war</packaging>
     <description>The web front-end for the First Cup Tutorial example.</description>
+  <dependencies>
+        <!-- Driver JDBC per MariaDB -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <version>3.3.7</version>
+        </dependency>
+    </dependencies>
 </project>

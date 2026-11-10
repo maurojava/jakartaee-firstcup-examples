@@ -15,4 +15,11 @@
 target
 
 nb-*
+# Ambiente e Credenziali Sensibili
+.env
+*.env
 
+# Certificati o chiavi di rete locali (se presenti)
+*.pem
+*.crt
+*.key

@@ -24,15 +24,15 @@
     <packaging>pom</packaging>
     <name>First Cup of Jakarta EE Tutorial Examples</name>
 
-    <scm>
-        <connection>scm:git:git@github.com:eclipse-ee4j/jakartaee-firstcup-examples.git</connection>
-        <developerConnection>scm:git:git@github.com:eclipse-ee4j/jakartaee-firstcup-examples.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/jakartaee-firstcup-examples</url>
+       <scm>
+        <connection>scm:git:git@github.com:maurojava/jakartaee-firstcup-examples.git</connection>
+        <developerConnection>scm:git:git@github.com:maurojava/jakartaee-firstcup-examples.git</developerConnection>
+        <url>https://github.com/maurojava/jakartaee-firstcup-examples</url>
         <tag>HEAD</tag>
     </scm>
     <issueManagement>
         <system>IssueTracker</system>
-        <url>https://github.com/eclipse-ee4j/jakartaee-firstcup-examples/issues</url>
+        <url>https://github.com/maurojava/jakartaee-firstcup-examples/issues</url>
     </issueManagement>
 
     <modules>
