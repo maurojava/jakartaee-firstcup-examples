@@ -42,7 +42,8 @@ services:
 
   # 3. Jenkins (per la CI/CD)
   jenkins:
-    image: jenkins/jenkins:lts-jdk17
+    #image: jenkins/jenkins:lts-jdk17
+    image: jenkins/jenkins:lts-jdk21
     container_name: firstcup-jenkins
     restart: unless-stopped
     user: root
@@ -51,7 +52,10 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock  # Permette a Jenkins di usare Docker sulla VPS
+      #- /var/run/docker.sock:/var/run/docker.sock  # Permette a Jenkins di usare Docker sulla VPS
+      # Monta il socket di Docker Desktop dell'utente sul socket interno di Jenkins
+      - /home/mauro/.docker/desktop/docker.sock:/var/run/docker.sock
+
     networks:
       - app-net
 
