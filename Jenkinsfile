@@ -27,7 +27,7 @@ pipeline {
                     echo "Trovato WAR: ${warFile}"
                     
                     if (warFile) {
-                        // 1. Crea il file password temporaneo dentro il container Payara se non esiste
+                        // 1. Crea il file password dentro il container proteggendo l'intero comando bash
                         sh "docker exec firstcup-payara bash -c \"echo 'AS_ADMIN_PASSWORD=' > /opt/payara/admin-password.txt\""
                         
                         // 2. Copia il WAR dal workspace di Jenkins direttamente dentro il container Payara
