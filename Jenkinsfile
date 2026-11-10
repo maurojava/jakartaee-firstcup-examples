@@ -12,36 +12,13 @@ pipeline {
                 checkout scm
             }
         }
-
-        
-      stage('2. Build & Package') {
+      
+        stage('2. Build & Package') {
             steps {
                 // Compila il progetto Jakarta EE generando il file WAR limitando i thread
                 sh 'mvn clean package -T 2'
             }
         }
-/*
-
-        stage('3. Deploy su Payara') {
-            steps {
-                script {
-                    // Copia o esegue il deploy del file WAR direttamente nel container Payara
-                    sh '''
-                        WAR_FILE=$(find firstcup-war/target -name "*.war" | head -n 1)
-                        if [ -f "$WAR_FILE" ]; then
-                            echo "Deploying $WAR_FILE to Payara..."
-                            docker exec firstcup-payara /opt/payara/appserver/bin/asadmin --user admin --passwordfile=/opt/payara/passwordfile deploy --force=true $WAR_FILE
-                        else
-                            echo "File WAR non trovato in firstcup-war/target!"
-                            exit 1
-                        fi
-                    '''
-                }
-            }
-        }
-    }
-
-*/
 
         stage('3. Deploy su Payara') {
             steps {
@@ -66,6 +43,7 @@ pipeline {
                 }
             }
         }
+    } // <-- Chiusura corretta del blocco stages
 
     post {
         success {
@@ -82,5 +60,5 @@ pipeline {
             */
         }
     }
-}
+} // <-- Chiusura corretta del blocco pipeline
 
