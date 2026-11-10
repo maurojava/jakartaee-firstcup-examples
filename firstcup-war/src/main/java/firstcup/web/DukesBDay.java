@@ -13,6 +13,8 @@ package firstcup.web;
 import firstcup.ejb.DukesBirthdayBean;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import jakarta.ejb.EJB;
@@ -27,24 +29,28 @@ import jakarta.ws.rs.client.WebTarget;
 @Named
 @SessionScoped
 public class DukesBDay implements Serializable {
-   
+    
     @EJB
     private DukesBirthdayBean dukesBirthdayBean;
     protected int age;
     @NotNull
-    protected LocalDate yourBD;
+    protected Date yourBD; // Accetta correttamente il Date inviato dal form JSF
     protected int ageDiff;
     protected int absAgeDiff;
     protected Double averageAgeDifference;
     private static final Logger logger = Logger.getLogger("firstcup.web.DukesBDay");
-
 
     /** Creates a new instance of DukesBDay */
     public DukesBDay() {
     }
 
     public String processBirthday() {
-        this.setAgeDiff(dukesBirthdayBean.getAgeDifference(yourBD));
+        // Converte il java.util.Date in LocalDate prima di passarlo all'EJB
+        LocalDate localYourBD = yourBD.toInstant()
+                                      .atZone(ZoneId.systemDefault())
+                                      .toLocalDate();
+                                      
+        this.setAgeDiff(dukesBirthdayBean.getAgeDifference(localYourBD));
         logger.log(Level.INFO, "age diff from dukesbday {0}", ageDiff);
         this.setAbsAgeDiff(Math.abs(this.getAgeDiff()));
         logger.log(Level.INFO, "absAgeDiff {0}", absAgeDiff);
@@ -84,7 +90,7 @@ public class DukesBDay implements Serializable {
      *
      * @return the value of yourBD
      */
-    public LocalDate getYourBD() {
+    public Date getYourBD() {
         return yourBD;
     }
 
@@ -93,7 +99,7 @@ public class DukesBDay implements Serializable {
      *
      * @param yourBD new value of yourBD
      */
-    public void setYourBD(LocalDate yourBD) {
+    public void setYourBD(Date yourBD) {
         this.yourBD = yourBD;
     }
 
@@ -150,5 +156,4 @@ public class DukesBDay implements Serializable {
     public void setAverageAgeDifference(Double averageAgeDifference) {
         this.averageAgeDifference = averageAgeDifference;
     }
-
 }
