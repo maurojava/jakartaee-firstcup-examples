@@ -43,8 +43,12 @@ services:
   # 3. Jenkins (per la CI/CD)
   jenkins:
     #image: jenkins/jenkins:lts-jdk17
-    image: jenkins/jenkins:lts-jdk21
+    #image: jenkins/jenkins:lts-jdk21
+    build:
+      context: .
+      dockerfile: Dockerfile.jenkins
     container_name: firstcup-jenkins
+    
     restart: unless-stopped
     user: root
     ports:
