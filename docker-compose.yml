@@ -8,6 +8,8 @@ services:
     image: mariadb:10.11
     container_name: firstcup-mariadb
     restart: unless-stopped
+    env_file:
+      - .env          # <--- LEGGE AUTOMATICAMENTE LE VARIABILI DAL FILE .ENV
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
@@ -20,12 +22,14 @@ services:
 
   # 2. Server Payara (per l'applicazione Jakarta EE)
   payara-app:
-    image: payara/server-full:6.2023.12-jdk17 # o la versione Payara che preferisci
+    image: payara/server-full:6.2023.12-jdk17
     container_name: firstcup-payara
     restart: unless-stopped
     ports:
       - "2692:8080"
       - "2698:4848"
+    env_file:
+      - .env          # <--- LEGGE IL FILE .ENV ANCHE QUI SE NECESSARIO
     environment:
       - DB_HOST=db
       - DB_USER=${DB_USER}
@@ -43,16 +47,11 @@ services:
     restart: unless-stopped
     user: root
     ports:
-      - "9090:8080"  # Nota: se Payara usa già l'8080, puoi cambiare la porta di Jenkins in "9090:8080"
+      - "9090:8080"
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock  # Permette a Jenkins di usare Docker se necessario
-    environment:
-      # Configurazione SMTP per le notifiche email di Jenkins
-      - JENKINS_OPTS=""
-      # Se vuoi preimpostare parametri di sistema puoi farlo qui, 
-      # ma la configurazione pulita si fa direttamente dall'interfaccia di Jenkins.   
+      - /var/run/docker.sock:/var/run/docker.sock  # Permette a Jenkins di usare Docker sulla VPS
     networks:
       - app-net
 
