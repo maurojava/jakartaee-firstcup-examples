@@ -24,7 +24,7 @@
     <packaging>pom</packaging>
     <name>First Cup of Jakarta EE Tutorial Examples</name>
 
-       <scm>
+    <scm>
         <connection>scm:git:git@github.com:maurojava/jakartaee-firstcup-examples.git</connection>
         <developerConnection>scm:git:git@github.com:maurojava/jakartaee-firstcup-examples.git</developerConnection>
         <url>https://github.com/maurojava/jakartaee-firstcup-examples</url>
@@ -47,10 +47,11 @@
 
         <!-- jakarta ee version and minimal Java runtime -->
         <jakartaee.api.version>10.0.0</jakartaee.api.version>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
 
         <!-- maven plugins -->
-        <maven.compiler.plugin.version>3.10.1</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.13.0</maven.compiler.plugin.version>
         <maven.war.plugin.version>3.3.2</maven.war.plugin.version>
         <maven.license.plugin.version>1.10.b1</maven.license.plugin.version>
         <maven.deploy.skip>true</maven.deploy.skip>
@@ -64,6 +65,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin.version}</version>
                 <inherited>true</inherited>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
@@ -105,7 +110,6 @@
                     </dependency>
                 </dependencies>
             </plugin>
-
         </plugins>
     </build>
 
@@ -118,3 +122,4 @@
         </dependency>
     </dependencies>
 </project>
+
